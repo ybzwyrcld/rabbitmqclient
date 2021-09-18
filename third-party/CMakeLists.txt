@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 2.8)
+cmake_minimum_required(VERSION 3.0)
 
 add_definitions("-std=c++11 -pthread")
 
@@ -15,14 +15,14 @@ ExternalProject_Add(libamqpcpp
     # URL "${CMAKE_CURRENT_SOURCE_DIR}/libamqpcpp-4.1.5.tar.gz"
     # URL_MD5 "66fa995d432adade65ea6274799f2bed"
     URL "${CMAKE_CURRENT_SOURCE_DIR}/libamqpcpp-4.1.5-ssl-fixed.tar.gz"
-    URL_MD5 "C64F5D6B19BB658AF630AB842FBBFD6F"
+    URL_MD5 "50004A5B7CB8CFBBCF2F345BE8449DC4"
     CMAKE_ARGS -Wno-dev 
         -DCMAKE_INSTALL_PREFIX=${AMQPCPP_ROOT}
         -DAMQP-CPP_LINUX_TCP=ON
         -DAMQP-CPP_SSL_CACERTS=${AMQPCPP_SSL_CACERTS}
         -DAMQP-CPP_SSL_CERTFILE=${AMQPCPP_SSL_CERTFILE}
         -DAMQP-CPP_SSL_KEYFILE=${AMQPCPP_SSL_KEYFILE}
-    )
+)
 file(MAKE_DIRECTORY ${AMQPCPP_ROOT}/include)
 message(STATUS "Found external dependency AMQP-CPP: " ${AMQPCPP_ROOT}/include)
 add_library(amqpcpp-static STATIC IMPORTED GLOBAL)
@@ -46,7 +46,7 @@ ExternalProject_Add(openssl
   INSTALL_DIR ${OpenSSL_ROOT}
 )
 file(MAKE_DIRECTORY ${OpenSSL_ROOT}/include)
-message(STATUS "Found external dependency SSL: " ${OpenSSL_ROOT}/include)
+message(STATUS "Found external dependency OpenSSL: " ${OpenSSL_ROOT}/include)
 add_library(openssl-crypto-static STATIC IMPORTED GLOBAL)
 set_property(TARGET openssl-crypto-static PROPERTY IMPORTED_LOCATION ${OpenSSL_ROOT}/lib/libcrypto.a)
 # set_property(TARGET openssl-crypto-static PROPERTY IMPORTED_INTERFACE_LINK_LIBRARIES pthread)

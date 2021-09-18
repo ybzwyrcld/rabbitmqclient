@@ -9,6 +9,7 @@ Test environment:
 - ubuntu 16.04
 - cmake 3.17.5
 - rabbitmq-server 3.5.7
+- erlang 18.3
 
 Build:
 
@@ -40,9 +41,13 @@ Using the `amqps://` protocol instead of `amqp://`:
 ```cpp
 // general.
 RabbitmqClient::InitParameter("amqp://guest:guest@localhost/", "exchange", "queue", "routekey");
-// using SSL/TLS.
+// using SSL.
 RabbitmqClient::InitParameter("amqps://guest:guest@localhost/", "exchange", "queue", "routekey");
 ```
+
+## AMQP-CPP changes
+
+Please see `docs/amqpcpp_ssl_fixed.diff`.
 
 ## Reference
 

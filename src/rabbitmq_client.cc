@@ -104,7 +104,7 @@ int RabbitmqClient::SendMessage(char const* const message, int size) {
 
 void RabbitmqClient::ConsumerRun(void) {
   if (service_is_running_.load()) return;
-  std::thread(&RabbitmqClient::ConsumerService, this).detach();
+  thread_.reset(&RabbitmqClient::ConsumerService, this);
 }
 
 void RabbitmqClient::ConsumerStop(void) {
@@ -113,6 +113,7 @@ void RabbitmqClient::ConsumerStop(void) {
     reinterpret_cast<AMQP::TcpConnection *>(connection_ptr_)->close();
     connection_ptr_ = nullptr;
   }
+  thread_.join();
 }
 
 void RabbitmqClient::ConsumerService(void) {

@@ -35,6 +35,8 @@
 #include <list>
 #include <vector>
 
+#include "../thread_raii.h"
+
 
 namespace rabbitmqclient {
 
@@ -124,6 +126,7 @@ class RabbitmqClient {
   std::string exchange_;
   std::string queue_;
   std::string routekey_;
+  Thread thread_;
   // Connection control.
   void* connection_ptr_;
   // Consumer receive message list.

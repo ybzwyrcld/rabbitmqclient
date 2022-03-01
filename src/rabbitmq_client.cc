@@ -116,6 +116,15 @@ void RabbitmqClient::ConsumerStop(void) {
   thread_.join();
 }
 
+// Send heartbeat immediately.
+bool RabbitmqClient::heartbeat(void) {
+  if (connection_ptr_ != nullptr) {
+    return reinterpret_cast<AMQP::TcpConnection *>(
+        connection_ptr_)->heartbeat();
+  }
+  return false;
+}
+
 void RabbitmqClient::ConsumerService(void) {
   service_is_running_.store(true);
   auto evbase = event_base_new();

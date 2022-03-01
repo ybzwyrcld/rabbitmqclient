@@ -116,6 +116,8 @@ class RabbitmqClient {
   }
   void ConsumerRun(void);
   void ConsumerStop(void);
+  // Send heartbeat immediately.
+  bool heartbeat(void);
 
  private:
   void ConsumerService(void);
